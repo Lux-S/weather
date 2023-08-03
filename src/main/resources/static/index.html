@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+</head>
+<body>
+<h1>Получить погоду</h1>
+<form id="weatherForm">
+    <label for="city">Введите название города: </label>
+    <input type="text" id="city" name="city" required>
+    <button type="submit">Получить погоду</button>
+</form>
+<div id="result"></div>
+
+<script>
+    const form = document.getElementById("weatherForm");
+    const resultDiv = document.getElementById("result");
+
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const city = document.getElementById("city").value;
+        const response = await fetch(`/getTemperature?city=${city}`);
+        const data = await response.json();
+
+        resultDiv.innerHTML = `Текущая температура в городе ${city}: ${data.temperature}°C`;
+    });
+</script>
+</body>
+</html>
